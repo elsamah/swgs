@@ -1,0 +1,8 @@
+.snakemake
+workflow/.snakemake
+data
+results
+alignment
+logs
+qc
+report.html

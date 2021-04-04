@@ -1,0 +1,17 @@
+# The main entry point of your workflow.
+# After configuring, running snakemake -n in a clone of this repository should successfully execute a dry-run of the workflow.
+
+
+include: "rules/common.smk"
+include: "rules/bwa_mem.smk"
+include: "rules/gatk.smk"
+include: "rules/qc.smk"
+include: "rules/other.smk"
+
+rule all:
+    input:
+      "results/plots/qc/wgs_insert_metrics.pdf",
+      #rules.indelrealigner.output
+#    input: all_input
+        # The first rule should define the default target files
+        # Subsequent target rules can be specified below. They should start with all_*.
