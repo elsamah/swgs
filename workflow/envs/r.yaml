@@ -1,6 +1,12 @@
 channels:
+ - quevedor2
+ - bioconda
  - conda-forge
  - defaults
 dependencies:
- - r-base == 4.0.3
+ - r-base ==4.0.3
  - r-optparse
+ - r-ichorcna ==0.2.1
+ - hmmcopy ==0.1.1
+ - samtools ==1.12
+ #- bioconductor-qdnaseq ==1.26.0

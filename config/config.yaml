@@ -39,3 +39,21 @@ params:
       1000gindels: '/mnt/work1/data/genomes/human/hg38/hg38bundle/Homo_sapiens_assembly38.variantEvalGoldStandard.vcf.gz'
       millsindels: '/mnt/work1/data/genomes/human/hg38/hg38bundle/Homo_sapiens_assembly38.known_indels.vcf'
       mills1000gindels: '/mnt/work1/data/genomes/human/hg38/hg38bundle/Mills_and_1000G_gold_standard.indels.hg38.vcf'
+  readcounter:
+    window: 1000000
+    quality: 20
+  ichorcna:
+    ploidy: "c(2,3)"
+    normal: "c(0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)"
+    genome_style: NCBI
+    maxCN: 5
+    include_HOMD: True
+    estimateNormal: True
+    estimatePloidy: True
+    estimateScPrevalence: True
+    sc_states: "c(1,3)"
+    txnE: 0.9999
+    txn_strength: 10000
+    
+    
+    
