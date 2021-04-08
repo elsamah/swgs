@@ -48,19 +48,19 @@ def get_fastqs(wildcards):
 def get_snp_paths(wildcards):
     ''' Assembles the paths for snp/indels for indel realignment'''
     var_build = "snp_" + config['common']['build']
-    print(var_build)
+    #print(var_build)
     known = list(config['params']['gatk'][var_build].values())
     return known
 
 def get_indel_paths(wildcards):
     ''' Assembles the paths for snp/indels for indel realignment'''
     var_build = "indel_" + config['common']['build']
-    print(var_build)
+    #print(var_build)
     known = list(config['params']['gatk'][var_build].values())
     return known
 
 def get_samples():
-    print(samples.index.tolist())
+    #print(samples.index.tolist())
     return samples.index.tolist()
 
 def combine_args(input_args):
@@ -80,10 +80,10 @@ def get_rgid(wildcards):
     return f"{rg}"
 
 def get_ichorPath(rlib_path):
-    print(str(rlib_path))
+    #print(str(rlib_path))
     file=open(str(rlib_path), mode='r',newline="\n")
     rlib_path = file.read()
-    print(str(rlib_path))
+    #print(str(rlib_path))
     extdata  = str(rlib_path).rstrip() + "/ichorCNA/extdata/"
     
     # Setup centromere file name (e.g. GRCh37 instead of hg19)
@@ -112,7 +112,7 @@ def get_ichorPath(rlib_path):
     return { "map":map_path, "gc":gc_path, "cen":cen_path, "norm":normal_path }
 
 def get_ichorChrs(chr_path):
-    print(str(chr_path))
+    #print(str(chr_path))
     file=open(str(chr_path), mode='r',newline="\n")
     chrs = file.read()
     

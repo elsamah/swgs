@@ -57,7 +57,8 @@ rule ichorcna:
         ref=config['common']['genome'],
     output:
         dir=directory("results/cnv/ichorcna/{sample}"),
-        file="results/cnv/ichorcna/{sample}/{sample}/{sample}_genomeWide.pdf",
+        file=report("results/cnv/ichorcna/{sample}/{sample}/{sample}_genomeWide.pdf",
+                     caption="../report/ichor.rst", category="CNV"),
     log:
         "logs/cnv/ichorcna/{sample}.log"
     conda:
@@ -103,6 +104,19 @@ rule ichorcna:
         "--txnStrength {params.txn_strength} "
         "--genomeStyle {params.genome_style} "
         "--outDir '{output.dir}' 2> {log}"
+
+rule relocate_cna_files:
+    input:
+        plot="results/cnv/ichorcna/{sample}/{sample}/{sample}_genomeWide.pdf",
+        seg="results/cnv/ichorcna/{sample}/{sample}.seg.txt",
+    output:
+        plot="results/plots/cnv/{sample}_genomeWide.pdf",
+        seg="results/tables/cnv/{sample}.seg.txt",
+    shell:
+        "cp {input.plot} {output.plot}; "
+        "cp {input.seg} {output.seg}; "
+
+
 
 '''
         "--genomeBuild {params.genome_build} "

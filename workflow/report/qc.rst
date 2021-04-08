@@ -1,0 +1,1 @@
+Picard QC metrics obtained from collectInsertSizeMetrics and CollectWgsMetrics. Top plot is the estimated coverage per sample. Middle plot is the average insert size per sample. Bottom plot is the breakdown of filtered aligned bases with bad metrics.

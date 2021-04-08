@@ -48,7 +48,7 @@ rule plot_wgs_insert:
         wgsfiles=expand("results/qc/{sample}.wgs_metrics", sample=samples.index),
         insertfiles=expand("results/qc/{sample}.insert_size_metrics", sample=samples.index)
     output:
-        "results/plots/qc/wgs_insert_metrics.pdf"
+        report("results/plots/qc/wgs_insert_metrics.pdf", caption="../report/qc.rst", category='QC'),
     params:
         samples=",".join(expand("{sample}", sample=samples.index)),
     conda:

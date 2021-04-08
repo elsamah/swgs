@@ -12,10 +12,10 @@ include: "rules/other.smk"
 rule all:
     input:
       "results/plots/qc/wgs_insert_metrics.pdf",
-      "results/cnv/ichorcna/net-037/net-037/net-037_genomeWide.pdf",
-      "results/cnv/ichorcna/net-002/net-002/net-002_genomeWide.pdf",
-      "results/cnv/ichorcna/net-001a/net-001a/net-001a_genomeWide.pdf",
-      "results/cnv/ichorcna/net-001b/net-001b/net-001b_genomeWide.pdf",
+      "results/plots/cnv/net-037_genomeWide.pdf",
+      "results/plots/cnv/net-001a_genomeWide.pdf",
+      "results/plots/cnv/net-001b_genomeWide.pdf",
+      "results/plots/cnv/net-002_genomeWide.pdf",
       #rules.indelrealigner.output
 #    input: all_input
         # The first rule should define the default target files
