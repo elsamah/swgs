@@ -3,6 +3,4 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - gatk4 ==4.1.4.1
-
-  
+  - tabix ==0.2.6

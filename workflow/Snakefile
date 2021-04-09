@@ -7,6 +7,8 @@ include: "rules/bwa_mem.smk"
 include: "rules/gatk.smk"
 include: "rules/qc.smk"
 include: "rules/cnv.smk"
+include: "rules/chrm_genotype.smk"
+include: "rules/chrm_copies.smk"
 include: "rules/other.smk"
 
 rule all:
@@ -16,6 +18,11 @@ rule all:
       "results/plots/cnv/net-001a_genomeWide.pdf",
       "results/plots/cnv/net-001b_genomeWide.pdf",
       "results/plots/cnv/net-002_genomeWide.pdf",
+      "results/tables/genotypeID/chrM_sampleid.tsv",
+      "results/plots/genotypeID/chrM_sampleid.pdf",
+      "results/tables/chrM/chrM_copies.tsv",
+      "results/plots/chrM/chrM_copies.pdf",
+
       #rules.indelrealigner.output
 #    input: all_input
         # The first rule should define the default target files
