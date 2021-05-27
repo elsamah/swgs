@@ -3,7 +3,7 @@ rule collect_multiple_metrics:
          bam="results/alignment/recal/{sample}.bqsr.bam",
          ref=config['common']['genome']
     output:
-        multiext("qc/{sample}",
+        multiext("results/qc/{sample}",
                  ".alignment_summary_metrics",      # CollectAlignmentSummaryMetrics
                  ".insert_size_metrics",            # CollectInsertSizeMetrics
                  ".insert_size_histogram.pdf",      # CollectInsertSizeMetrics
@@ -44,17 +44,17 @@ rule collect_wgs_metrics:
 
 rule plot_wgs_insert:
     input:
-        qcdir="results/qc",
         wgsfiles=expand("results/qc/{sample}.wgs_metrics", sample=samples.index),
         insertfiles=expand("results/qc/{sample}.insert_size_metrics", sample=samples.index)
     output:
         report("results/plots/qc/wgs_insert_metrics.pdf", caption="../report/qc.rst", category='QC'),
     params:
+        qcdir="results/qc",
         samples=",".join(expand("{sample}", sample=samples.index)),
     conda:
         "../envs/r.yaml"
     shell:
         "Rscript workflow/scripts/plot_picard_metrics.R "
-        "--qcdir {input.qcdir} "
+        "--qcdir {params.qcdir} "
         "--samples {params.samples} "
         "--output {output}"

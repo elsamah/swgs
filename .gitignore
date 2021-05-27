@@ -2,6 +2,9 @@
 workflow/.snakemake
 data
 results
+results_bkup
 logs
 report.html
 resources/chrM*
+.conda/
+slurm*.out

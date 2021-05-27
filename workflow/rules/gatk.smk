@@ -52,7 +52,7 @@ rule indelrealigner:
     output:
         bam="results/alignment/realign/{sample}.bam",
         bai="results/alignment/realign/{sample}.bai",
-        java_temp=temp(directory("/tmp/gatk3_indelrealigner/{sample}")),
+#        java_temp=temp(directory("/tmp/gatk3_indelrealigner/{sample}")),
     log:
         "logs/gatk/indelrealigner/{sample}.log"
     params:
@@ -99,8 +99,10 @@ rule printreads:
 
 rule symlink_bai:
     input:
+        "results/alignment/recal/{sample}.bqsr.bam",
+    params:
         "results/alignment/recal/{sample}.bqsr.bai",
     output:
         "results/alignment/recal/{sample}.bqsr.bam.bai",
     shell:
-        "ln -s $(readlink -f {input}) {output}"
+        "ln -s $(readlink -f {params}) {output}"

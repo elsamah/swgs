@@ -1,0 +1,11 @@
+channels:
+ - quevedor2
+ - r
+ - bioconda
+ - conda-forge
+ - anaconda
+ - defaults
+dependencies:
+ - r-base ==3.6.1
+ - r-wadingpool ==0.1.0
+ #- bioconductor-qdnaseq ==1.26.0

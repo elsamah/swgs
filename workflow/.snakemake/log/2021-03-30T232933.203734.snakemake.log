@@ -1,4 +1,0 @@
-WorkflowError in line 10 of /mnt/work1/users/home2/quever/git/swgs/workflow/rules/common.smk:
-Config file config/config.yaml not found.
-  File "/mnt/work1/users/home2/quever/git/swgs/workflow/Snakefile", line 17, in <module>
-  File "/mnt/work1/users/home2/quever/git/swgs/workflow/rules/common.smk", line 10, in <module>

@@ -23,6 +23,9 @@ params:
     printreads:
       - "-rf BadCigar"
       - "-dt NONE"
+    collectalleliccounts:
+      target: "/mnt/work1/users/pughlab/references/dbsnp/dbsnp_b146_GRCh37p13/chr_bed/all.chr.common_all_20151104.bed"
+      min_n: 2
     snp_hg19:
       dbsnp: '/mnt/work1/data/genomes/human/hg19/variantcallingdata/dbsnp_138.hg19.vcf'
       1000gsnps: '/mnt/work1/data/genomes/human/hg19/variantcallingdata/1000G_phase1.snps.high_confidence.hg19.vcf'

@@ -8,22 +8,21 @@ include: "rules/gatk.smk"
 include: "rules/qc.smk"
 include: "rules/cnv.smk"
 include: "rules/chrm_genotype.smk"
+include: "rules/autosome_genotype.smk"
 include: "rules/chrm_copies.smk"
 include: "rules/other.smk"
 
 rule all:
     input:
       "results/plots/qc/wgs_insert_metrics.pdf",
-      "results/plots/cnv/net-037_genomeWide.pdf",
-      "results/plots/cnv/net-001a_genomeWide.pdf",
-      "results/plots/cnv/net-001b_genomeWide.pdf",
-      "results/plots/cnv/net-002_genomeWide.pdf",
-      "results/tables/genotypeID/chrM_sampleid.tsv",
+      expand("results/plots/cnv/{sample}_genomeWide.pdf", sample=samples.index),
+      expand("results/zygosity/wadingpool/hmmfit_{sample}.pdf", sample=samples.index),
+      "results/sampleid/autosome/similarity_autosome.pdf",
+      "results/zygosity/AD/aggregate_filt.csv",
+      "results/zygosity/AD/aggregate_pos.txt",
+      "results/zygosity/AD/aggregate_lines.txt",
+      "results/tables/genotypeID/chrM_sampleid_n.tsv",
+      "results/tables/genotypeID/chrM_sampleid_jacc.tsv",
       "results/plots/genotypeID/chrM_sampleid.pdf",
       "results/tables/chrM/chrM_copies.tsv",
       "results/plots/chrM/chrM_copies.pdf",
-
-      #rules.indelrealigner.output
-#    input: all_input
-        # The first rule should define the default target files
-        # Subsequent target rules can be specified below. They should start with all_*.

@@ -38,6 +38,17 @@ wildcard_constraints:
     sample = "|".join(samples.index),
     unit = "|".join(units["unit"])
 
+'''
+##### setting env paths #####
+rule get_RlibPath:
+    output:
+        "results/ref/libpath"
+    conda:
+        "../envs/r.yaml"
+    shell:
+        "Rscript -e \"cat(.libPaths(), '\n')\" > {output}"
+'''
+
 ####### helpers ###########
 def get_fastqs(wildcards):
     """Get raw FASTQ files from unit sheet."""

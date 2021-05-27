@@ -14,6 +14,7 @@ rule bwa_mem:
   wrapper:
     "0.73.0/bio/bwa/mem"
 
+
 rule samtools_index:
   input:
     "results/alignment/mapped_reads/{sample}.sorted.bam"

@@ -1,4 +1,0 @@
-ImportError in line 1 of /mnt/work1/users/home2/quever/git/swgs/workflow/rules/common.smk:
-cannot import name 'validate'
-  File "/mnt/work1/users/home2/quever/git/swgs/workflow/Snakefile", line 17, in <module>
-  File "/mnt/work1/users/home2/quever/git/swgs/workflow/rules/common.smk", line 1, in <module>

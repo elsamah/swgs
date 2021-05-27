@@ -21,7 +21,7 @@ rule readcounter:
         bai="results/alignment/recal/{sample}.bqsr.bam.bai",
         chrs="results/cnv/ichorcna/{sample}.chrs",
     output:
-        "results/cnv/ichorcna/{sample}.wig",
+        temp("results/cnv/ichorcna/{sample}.wig"),
     params:
         window=config['params']['readcounter']['window'],
         quality=config['params']['readcounter']['quality'],
@@ -40,13 +40,11 @@ rule readcounter:
 
 rule get_RlibPath:
     output:
-        "results/ref/libpath"
+        temp("results/ref/libpath"),
     conda:
-        "../envs/r.yaml"
-    priority:
-        50
+        "../envs/r.yaml",
     shell:
-        "Rscript -e \"cat(.libPaths(), '\n')\" > {output}"
+        "Rscript -e 'cat(.libPaths(), \"\n\")' > {output} "
 
 rule ichorcna:
     input:
@@ -59,6 +57,7 @@ rule ichorcna:
         dir=directory("results/cnv/ichorcna/{sample}"),
         file=report("results/cnv/ichorcna/{sample}/{sample}/{sample}_genomeWide.pdf",
                      caption="../report/ichor.rst", category="CNV"),
+        seg="results/cnv/ichorcna/{sample}/{sample}.seg.txt",
     log:
         "logs/cnv/ichorcna/{sample}.log"
     conda:
@@ -67,13 +66,13 @@ rule ichorcna:
         ploidy=config['params']['ichorcna']['ploidy'],
         normal=config['params']['ichorcna']['normal'],
         maxCN=config['params']['ichorcna']['maxCN'],
-        gc_wig=lambda w, input: get_ichorPath(input[2])['gc'],
-        map_wig=lambda w, input: get_ichorPath(input[2])['map'],
-        centromere=lambda w, input: get_ichorPath(input[2])['cen'],
-        normal_panel=lambda w, input: get_ichorPath(input[2])['norm'],
+#        gc_wig=lambda w, input: get_ichorPath(input[2])['gc'],
+#        map_wig=lambda w, input: get_ichorPath(input[2])['map'],
+#        centromere=lambda w, input: get_ichorPath(input[2])['cen'],
+#        normal_panel=lambda w, input: get_ichorPath(input[2])['norm'],
         HOMD=config['params']['ichorcna']['include_HOMD'],
-        chrs=lambda w, input: get_ichorChrs(input[3].format(sample=w.sample))['all'],
-        chr_train=lambda w, input: get_ichorChrs(input[3].format(sample=w.sample))['train'],
+#        chrs=lambda w, input: get_ichorChrs(input[3].format(sample=w.sample))['all'],
+#        chr_train=lambda w, input: get_ichorChrs(input[3].format(sample=w.sample))['train'],
         estimateNormal=config['params']['ichorcna']['estimateNormal'],
         estimatePloidy=config['params']['ichorcna']['estimatePloidy'],
         estimateScPrevalence=config['params']['ichorcna']['estimateScPrevalence'],
@@ -89,13 +88,13 @@ rule ichorcna:
         "--ploidy '{params.ploidy}' "
         "--normal '{params.normal}' "
         "--maxCN {params.maxCN} "
-        "--gcWig '{params.gc_wig}' "
-        "--mapWig '{params.map_wig}' "
-        "--centromere '{params.centromere}' "
-        "--normalPanel '{params.normal_panel}' "
+        "--gcWig \"$(python workflow/scripts/parse_paths.py -i {input.rlib} -r 'gc')\" "
+        "--mapWig \"$(python workflow/scripts/parse_paths.py -i {input.rlib} -r 'map')\" "
+        "--centromere \"$(python workflow/scripts/parse_paths.py -i {input.rlib} -r 'cen')\" "
+        "--normalPanel \"$(python workflow/scripts/parse_paths.py -i {input.rlib} -r 'norm')\" "
         "--includeHOMD {params.HOMD} "
-        "--chrs '{params.chrs}' "
-        "--chrTrain '{params.chr_train}' "
+        "--chrs \"$(python workflow/scripts/parse_paths.py -i {input.chrs} -r 'all')\" "
+        "--chrTrain \"$(python workflow/scripts/parse_paths.py -i {input.chrs} -r 'train')\" "
         "--estimateNormal {params.estimateNormal} "
         "--estimatePloidy {params.estimatePloidy} "
         "--estimateScPrevalence {params.estimateScPrevalence} "
@@ -116,7 +115,15 @@ rule relocate_cna_files:
         "cp {input.plot} {output.plot}; "
         "cp {input.seg} {output.seg}; "
 
-
+'''
+        "--gcWig '{params.gc_wig}' "
+        "--mapWig '{params.map_wig}' "
+        "--centromere '{params.centromere}' "
+        "--normalPanel '{params.normal_panel}' "
+        "--includeHOMD {params.HOMD} "
+        "--chrs '{params.chrs}' "
+        "--chrTrain '{params.chr_train}' "
+'''
 
 '''
         "--genomeBuild {params.genome_build} "

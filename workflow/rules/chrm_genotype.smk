@@ -30,7 +30,7 @@ rule subset_chrM:
     conda:
         "../envs/samtools.yaml",
     params:
-        param='-bsh',
+        param='-bh',
         chr='chrM',
     shell:
         "samtools view {params.param} {input} {params.chr} > {output.bam} ; "
@@ -115,7 +115,9 @@ rule genotype_checker:
     input:
         vcf="results/sampleid/chrM/merge.vcf",
     output:
-        tbl=report("results/sampleid/chrM/chrM_sampleid.tsv",
+        ntbl=report("results/sampleid/chrM/chrM_sampleid_n.tsv",
+                    caption="../report/chrMid.rst", category="genotypeID"),
+        jacctbl=report("results/sampleid/chrM/chrM_sampleid_jacc.tsv",
                     caption="../report/chrMid.rst", category="genotypeID"),
         plot=report("results/sampleid/chrM/chrM_sampleid.pdf",
                     caption="../report/chrMid.rst", category="genotypeID"),
@@ -131,16 +133,20 @@ rule genotype_checker:
         "Rscript workflow/scripts/genotypeChecker.R "
         "{input.vcf} "
         "'{params.samples}' "
-        "{output.tbl} "
+        "{output.jacctbl} "
+        "{output.ntbl} "
         "{output.plot} "
 
 rule relocate_chrm_files:
     input:
-        tbl="results/sampleid/chrM/chrM_sampleid.tsv",
+        ntbl="results/sampleid/chrM/chrM_sampleid_n.tsv",
+        jacctbl="results/sampleid/chrM/chrM_sampleid_jacc.tsv",
         plot="results/sampleid/chrM/chrM_sampleid.pdf",
     output:
-        tbl="results/tables/genotypeID/chrM_sampleid.tsv",
+        ntbl="results/tables/genotypeID/chrM_sampleid_n.tsv",
+        jacctbl="results/tables/genotypeID/chrM_sampleid_jacc.tsv",
         plot="results/plots/genotypeID/chrM_sampleid.pdf",
     shell:
         "cp {input.plot} {output.plot}; "
-        "cp {input.tbl} {output.tbl}; "
+        "cp {input.ntbl} {output.ntbl}; "
+        "cp {input.jacctbl} {output.jacctbl}; "
