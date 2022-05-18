@@ -24,7 +24,7 @@ rule collect_multiple_metrics:
         "METRIC_ACCUMULATION_LEVEL=null "
         "METRIC_ACCUMULATION_LEVEL=SAMPLE "
     wrapper:
-        "0.73.0/bio/picard/collectmultiplemetrics"
+        "0.77.0/bio/picard/collectmultiplemetrics"
 
 rule collect_wgs_metrics:
     input:

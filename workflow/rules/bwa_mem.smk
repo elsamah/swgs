@@ -12,7 +12,7 @@ rule bwa_mem:
     sort="samtools",
     sort_order="coordinate"
   wrapper:
-    "0.75.0/bio/bwa/mem"
+    "0.77.0/bio/bwa/mem"
 
 
 rule samtools_index:
@@ -23,4 +23,4 @@ rule samtools_index:
   params:
     ""
   wrapper:
-    "0.75.0/bio/samtools/index"
+    "0.77.0/bio/samtools/index"
