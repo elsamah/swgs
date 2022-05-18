@@ -79,7 +79,7 @@ rule genotype_gvcfs:
     resources:
         mem_mb=2048
     wrapper:
-        "0.73.0/bio/gatk/genotypegvcfs"
+        "0.77.0/bio/gatk/genotypegvcfs"
 
 rule tabix_vcf:
     input:
