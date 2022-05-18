@@ -52,8 +52,8 @@ rule get_RlibPath:
 ####### helpers ###########
 def get_fastqs(wildcards):
     """Get raw FASTQ files from unit sheet."""
-    #u = units.loc[ (wildcards.sample, wildcards.unit), ["fq1", "fq2"] ].dropna()
-    u = units.loc[ (wildcards.sample, '1'), ["fq1", "fq2"] ].dropna()
+    u = units.loc[ (wildcards.sample, wildcards.unit), ["fq1", "fq2"] ].dropna()
+    #u = units.loc[ (wildcards.sample, '1'), ["fq1", "fq2"] ].dropna()
     return [ f"{u.fq1}", f"{u.fq2}" ]
 
 def get_snp_paths(wildcards):
@@ -96,14 +96,14 @@ def get_ichorPath(rlib_path):
     rlib_path = file.read()
     #print(str(rlib_path))
     extdata  = str(rlib_path).rstrip() + "/ichorCNA/extdata/"
-    
+
     # Setup centromere file name (e.g. GRCh37 instead of hg19)
     if config['common']['build'] == 'hg19':
         cen_file = 'GRCh37.p13_centromere_UCSC-gapTable.txt'
     elif config['common']['build'] == 'hg38':
         cen_file = 'GRCh38.GCA_000001405.2_centromere_acen.txt'
         #cen_file = 'cytoBand_hg38'
-    
+
     # Get the 500kb or 1Mb window annotation
     window_size = config['params']['readcounter']['window']
     window_size = int(window_size / 1000)       # size in kb
@@ -111,7 +111,7 @@ def get_ichorPath(rlib_path):
         window_size_simple = str(int(window_size / 1000)) + "Mb"
     else:
         window_size_simple = str(window_size) + "kb"
-    
+
     # assemble wig file prefix
     # Expected Format: [gc/map]_[hg19/hg38]_[window_size]kb.wig
     wig_file = "_" + config['common']['build'] + "_" + str(window_size) + "kb.wig"
@@ -126,10 +126,10 @@ def get_ichorChrs(chr_path):
     #print(str(chr_path))
     file=open(str(chr_path), mode='r',newline="\n")
     chrs = file.read()
-    
+
     chrs        = re.sub("chr", "", chrs.rstrip())
     chr_train   = "c(" + re.sub(",X.*$", "", chrs) + ")"
 #    chrs        = "c(" + re.sub(",Y.*$", "", chrs) + ")"
     chrs        = "c(" + re.sub(",X.*$", "", chrs) + ")"
-    
+
     return {"all":chrs, "train":chr_train}
