@@ -11,7 +11,7 @@ rule mark_duplicates:
     "REMOVE_DUPLICATES=true",
     "ASSUME_SORT_ORDER='coordinate'"
   wrapper:
-    "0.75.0/bio/picard/markduplicates"
+    "0.77.0/bio/picard/markduplicates"
 
 rule index_duplicates:
   input:
@@ -21,7 +21,7 @@ rule index_duplicates:
   log:
     "logs/samtools/index/{sample}.log"
   wrapper:
-    "0.75.0/bio/samtools/index"
+    "0.77.0/bio/samtools/index"
 
 rule realigner_target_creator:
     input:
@@ -40,7 +40,7 @@ rule realigner_target_creator:
         mem_mb=8192,
     threads: 8
     wrapper:
-        "0.75.0/bio/gatk3/realignertargetcreator"
+        "0.77.0/bio/gatk3/realignertargetcreator"
 
 rule indelrealigner:
     input:
@@ -61,7 +61,7 @@ rule indelrealigner:
     resources:
         mem_mb = 8192
     wrapper:
-        "0.75.0/bio/gatk3/indelrealigner"
+        "0.77.0/bio/gatk3/indelrealigner"
 
 rule baserecalibrator:
     input:
@@ -78,7 +78,7 @@ rule baserecalibrator:
         mem_mb = 8192
     threads: 8
     wrapper:
-        "0.75.0/bio/gatk3/baserecalibrator"
+        "0.77.0/bio/gatk3/baserecalibrator"
 
 rule printreads:
     input:
@@ -95,7 +95,7 @@ rule printreads:
         mem_mb = 8192
     threads: 8
     wrapper:
-        "0.75.0/bio/gatk3/printreads"
+        "0.77.0/bio/gatk3/printreads"
 
 rule symlink_bai:
     input:
