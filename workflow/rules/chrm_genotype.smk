@@ -43,7 +43,7 @@ rule chrM_index:
     params:
         "" # optional params string
     wrapper:
-        "0.73.0/bio/samtools/index"
+        "0.75.0/bio/samtools/index"
 
 rule chrM_haplotype_caller:
     input:
@@ -63,7 +63,7 @@ rule chrM_haplotype_caller:
     resources:
         mem_mb=2048
     wrapper:
-        "0.73.0/bio/gatk/haplotypecaller"
+        "0.75.0/bio/gatk/haplotypecaller"
 
 rule genotype_gvcfs:
     input:
@@ -79,7 +79,7 @@ rule genotype_gvcfs:
     resources:
         mem_mb=2048
     wrapper:
-        "0.73.0/bio/gatk/genotypegvcfs"
+        "0.75.0/bio/gatk/genotypegvcfs"
 
 rule tabix_vcf:
     input:
