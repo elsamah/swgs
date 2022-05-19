@@ -95,7 +95,7 @@ rule printreads:
         mem_mb = 8192
     threads: 8
     wrapper:
-        "0.77.0/bio/gatk/printreads"
+        "0.77.0/bio/gatk/printreadsspark"
 
 rule symlink_bai:
     input:
