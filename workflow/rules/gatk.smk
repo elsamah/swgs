@@ -40,7 +40,7 @@ rule realigner_target_creator:
         mem_mb=8192,
     threads: 8
     wrapper:
-        "0.77.0/bio/gatk/realignertargetcreator"
+        "0.77.0/bio/gatk3/realignertargetcreator"
 
 rule indelrealigner:
     input:
@@ -95,7 +95,7 @@ rule printreads:
         mem_mb = 8192
     threads: 8
     wrapper:
-        "0.77.0/bio/gatk/printreadsspark"
+        "0.77.0/bio/gatk3/printreads"
 
 rule symlink_bai:
     input:
