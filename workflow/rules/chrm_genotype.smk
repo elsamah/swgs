@@ -16,12 +16,14 @@ rule chrM_dict:
     output:
         dict="resources/chrM.dict",
         bed="resources/chrM.bed",
-    conda:
-        "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
+    #conda:
+    #    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     shell:
-        "gatk CreateSequenceDictionary -R {input} ; "
-        "echo -e 'chrM\t1\t'$(grep 'chrM' resources/chrM.dict  | cut -f3 | sed 's/LN://') > {output.bed}"
-
+      """
+      module load gatk/3.8
+      gatk CreateSequenceDictionary -R {input} ;
+      echo -e 'chrM\t1\t'$(grep 'chrM' resources/chrM.dict  | cut -f3 | sed 's/LN://') > {output.bed}
+      """
 rule subset_chrM:
     input:
         "results/alignment/recal/{sample}.bqsr.bam",
