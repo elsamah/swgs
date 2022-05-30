@@ -11,7 +11,7 @@ rule mark_duplicates:
     "REMOVE_DUPLICATES=true",
     "ASSUME_SORT_ORDER='coordinate'"
   wrapper:
-    "0.77.0/bio/picard/markduplicates"
+    "0.75.0/bio/picard/markduplicates"
 
 rule index_duplicates:
   input:
