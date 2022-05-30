@@ -39,8 +39,20 @@ rule realigner_target_creator:
     resources:
         mem_mb=8192,
     threads: 8
-    wrapper:
-        "0.77.0/bio/gatk3/realignertargetcreator"
+    conda:
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml".
+    shell:
+    """
+    gatk3 -Xmx8g -T RealignerTargetCreator \
+    --disable_auto_index_creation_and_locking_when_reading_rods \
+    -nt 4 \
+    -I {input.bam} \
+    -R {input.ref} \
+    --interval_padding 100 \
+    -known {input.known} \
+    -dt None \
+    -o {output.intervals}
+    """
 
 rule indelrealigner:
     input:
@@ -58,10 +70,22 @@ rule indelrealigner:
     params:
         extra=""  # optional
     threads: 8
+    conda:
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     resources:
         mem_mb = 8192
-    wrapper:
-        "0.77.0/bio/gatk3/indelrealigner"
+    shell:
+    """
+    gatk3 -Xmx12g -T IndelRealigner \
+    --disable_auto_index_creation_and_locking_when_reading_rods \
+    -I {input.bam} \
+    -o {output} \
+    -R {input.ref} \
+    -targetIntervals {input.interval} \
+    -known {input.known} \
+    -dt None \
+    -compress 0
+    """
 
 rule baserecalibrator:
     input:
@@ -77,8 +101,24 @@ rule baserecalibrator:
     resources:
         mem_mb = 8192
     threads: 8
-    wrapper:
-        "0.77.0/bio/gatk3/baserecalibrator"
+    conda:
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
+    shell:
+    """
+    gatk3 -Xmx12g -T BaseRecalibrator \
+    -nct 4 \
+    --disable_auto_index_creation_and_locking_when_reading_rods \
+    -I {input.bam} \
+    -o {output} \
+    -R {input.ref} \
+    -knownSites {input.known} \
+    -rf BadCigar \
+    -cov ReadGroupCovariate \
+    -cov ContextCovariate \
+    -cov CycleCovariate \
+    -cov QualityScoreCovariate \
+    -dt None
+    """
 
 rule printreads:
     input:
@@ -94,8 +134,21 @@ rule printreads:
     resources:
         mem_mb = 8192
     threads: 8
+    conda:
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml"
     wrapper:
-        "0.77.0/bio/gatk3/printreads"
+    """
+    gatk3 -Xmx12g -T PrintReads \
+    {params.extra} \
+    --disable_auto_index_creation_and_locking_when_reading_rods \
+    -nct 4 \
+    -I {input.bam} \
+    -o {output} \
+    -R {input.ref} \
+    -BQSR {input.recal_data} \
+    -rf BadCigar \
+    -dt None
+    """
 
 rule symlink_bai:
     input:
