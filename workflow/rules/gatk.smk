@@ -11,7 +11,7 @@ rule mark_duplicates:
     "REMOVE_DUPLICATES=true",
     "ASSUME_SORT_ORDER='coordinate'"
   params:
-    picard="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9b770440ff173434e53ee101c7452a0a/share/picard-2.26.0-0"
+    picard="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9b770440ff173434e53ee101c7452a0a/share/picard-2.26.0-0",
   threads: 4
   conda:
     "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/bwa.yaml",
@@ -54,7 +54,7 @@ rule realigner_target_creator:
         mem_mb=8192,
     threads: 8
     conda:
-    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml".
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     shell:
     """
     gatk3 -Xmx8g -T RealignerTargetCreator \
@@ -149,7 +149,7 @@ rule printreads:
         mem_mb = 8192
     threads: 8
     conda:
-    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml"
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     wrapper:
     """
     gatk3 -Xmx12g -T PrintReads \
