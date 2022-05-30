@@ -17,7 +17,7 @@ rule chrM_dict:
         dict="resources/chrM.dict",
         bed="resources/chrM.bed",
     conda:
-        "../envs/gatk.yaml",
+        "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     shell:
         "gatk CreateSequenceDictionary -R {input} ; "
         "echo -e 'chrM\t1\t'$(grep 'chrM' resources/chrM.dict  | cut -f3 | sed 's/LN://') > {output.bed}"
