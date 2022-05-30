@@ -10,8 +10,22 @@ rule mark_duplicates:
   params:
     "REMOVE_DUPLICATES=true",
     "ASSUME_SORT_ORDER='coordinate'"
-  wrapper:
-    "0.75.0/bio/picard/markduplicates"
+  params:
+    picard="/cluster/home/selghamr/workflows/ExomeSeq/.snakemake/conda/9b770440ff173434e53ee101c7452a0a/share/picard-2.26.0-0"
+  threads: 4
+  conda:
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/bwa.yaml",
+  shell:
+    """
+    java -Xmx12g -jar {params.picard}/picard.jar \
+    MarkDuplicates INPUT={input.bam} OUTPUT={output.dedup} \
+    METRICS_FILE={output.metrics} \
+    ASSUME_SORTED=true MAX_RECORDS_IN_RAM=100000 \
+    VALIDATION_STRINGENCY=SILENT \
+    CREATE_INDEX=true \
+    USE_JDK_DEFLATER=true \
+    USE_JDK_INFLATER=true
+    """
 
 rule index_duplicates:
   input:

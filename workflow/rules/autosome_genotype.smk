@@ -4,7 +4,7 @@ rule collect_allelic_counts:
   output:
     "results/zygosity/counts/{sample}.allelicCounts.tsv",
   conda:
-    "../envs/gatk.yaml",
+    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
   log:
     "logs/gatk/collectalleliccounts/{sample}.log"
   params:
