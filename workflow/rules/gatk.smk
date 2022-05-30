@@ -54,9 +54,10 @@ rule realigner_target_creator:
         mem_mb=8192,
     threads: 8
     conda:
-      "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
+      #"/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     shell:
       """
+      module load gatk/3.8
       gatk3 -Xmx8g -T RealignerTargetCreator \
       --disable_auto_index_creation_and_locking_when_reading_rods \
       -nt 4 \
@@ -85,11 +86,12 @@ rule indelrealigner:
         extra=""  # optional
     threads: 8
     conda:
-      "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
+      #"/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     resources:
         mem_mb = 8192
     shell:
       """
+      module load gatk/3.8
       gatk3 -Xmx12g -T IndelRealigner \
       --disable_auto_index_creation_and_locking_when_reading_rods \
       -I {input.bam} \
@@ -116,9 +118,10 @@ rule baserecalibrator:
         mem_mb = 8192
     threads: 8
     conda:
-      "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
+      #"/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     shell:
       """
+      module load gatk/3.8
       gatk3 -Xmx12g -T BaseRecalibrator \
       -nct 4 \
       --disable_auto_index_creation_and_locking_when_reading_rods \
@@ -149,9 +152,10 @@ rule printreads:
         mem_mb = 8192
     threads: 8
     conda:
-      "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
+      #"/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     shell:
       """
+      module load gatk/3.8
       gatk3 -Xmx12g -T PrintReads \
       {params.extra} \
       --disable_auto_index_creation_and_locking_when_reading_rods \
