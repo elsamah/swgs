@@ -53,7 +53,7 @@ rule realigner_target_creator:
     resources:
         mem_mb=8192,
     threads: 8
-    conda:
+    #conda:
       #"/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     shell:
       """
@@ -85,7 +85,7 @@ rule indelrealigner:
     params:
         extra=""  # optional
     threads: 8
-    conda:
+    #conda:
       #"/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     resources:
         mem_mb = 8192
@@ -117,7 +117,7 @@ rule baserecalibrator:
     resources:
         mem_mb = 8192
     threads: 8
-    conda:
+    #conda:
       #"/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     shell:
       """
@@ -151,7 +151,7 @@ rule printreads:
     resources:
         mem_mb = 8192
     threads: 8
-    conda:
+    #conda:
       #"/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     shell:
       """
