@@ -54,7 +54,7 @@ rule realigner_target_creator:
         mem_mb=8192,
     threads: 8
     conda:
-    "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
+      "/cluster/home/selghamr/workflows/ExomeSeq/workflow/envs/gatk.yaml",
     shell:
     """
     gatk3 -Xmx8g -T RealignerTargetCreator \
